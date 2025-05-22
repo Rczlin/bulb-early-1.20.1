@@ -1,8 +1,12 @@
 package com.rlint;
 
+import com.rlint.register.MySoundEvent;
 import com.rlint.register.RegistriesBlocks;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroups;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +24,9 @@ public class BulbEarly implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
+//		LOGGER.info("Hello Fabric world!");
 		RegistriesBlocks.RegistriesBlocks();
+		MySoundEvent.registerSounds();
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content->content.addAfter(Blocks.DROPPER,RegistriesBlocks.COPPER_BULB));
 	}
 }

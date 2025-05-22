@@ -3,6 +3,7 @@ package com.rlint.register;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
@@ -48,7 +49,11 @@ public class BulbBlock extends Block {
             BlockState blockState = state;
             if (!(Boolean)state.get(POWERED)) {
                 blockState = state.cycle(LIT);
-                //world.playSound(null, pos, blockState.get(LIT) ? SoundEvents.BLOCK_COPPER_BULB_TURN_ON : SoundEvents.BLOCK_COPPER_BULB_TURN_OFF, SoundCategory.BLOCKS);
+                try{
+                    world.playSound(null, pos, blockState.get(LIT) ? MySoundEvent.BLOCK_COPPER_BULB_TURN_ON : MySoundEvent.BLOCK_COPPER_BULB_TURN_OFF, SoundCategory.BLOCKS);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 //上面是音效 后面一定补上hhh
             }
 

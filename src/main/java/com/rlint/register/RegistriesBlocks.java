@@ -93,7 +93,7 @@ public class RegistriesBlocks {
     public static final Block COPPER_BULB = register("copper_bulb", new BulbBlock(AbstractBlock.Settings.create()
             .mapColor(COPPER_BLOCK.getDefaultMapColor())
             .strength(3.0F, 6.0F)
-            //.sounds(BlockSoundGroup.COPPER_BULB)
+            .sounds(MySoundEvent.COPPER_BULB)
             .requiresTool()
             .solidBlock(Blocks::never)
             .luminance(createLightLevelFromLitBlockState()
