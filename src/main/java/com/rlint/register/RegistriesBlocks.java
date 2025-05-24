@@ -80,25 +80,37 @@ public class RegistriesBlocks {
     //);
 
         //自定义 添加trycatch 防止首次加载崩力
-    public static ToIntFunction<BlockState> createLightLevelFromLitBlockState() {
+    public static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {
         return state -> {
             try{
-                return state.get(Properties.LIT) ? 15 : 0;
+                return state.get(Properties.LIT) ? litLevel : 0;
             }catch(Exception e){
                 return 0;
             }
         };
     }
     //直接使用BulbBlock Setting直接新建就好了
+    //不会氧化的铜灯
     public static final Block COPPER_BULB = register("copper_bulb", new BulbBlock(AbstractBlock.Settings.create()
             .mapColor(COPPER_BLOCK.getDefaultMapColor())
             .strength(3.0F, 6.0F)
             .sounds(MySoundEvent.COPPER_BULB)
             .requiresTool()
             .solidBlock(Blocks::never)
-            .luminance(createLightLevelFromLitBlockState()
+            .luminance(createLightLevelFromLitBlockState(15)
             )
     )
+    );
+    //已经氧化的铜灯
+    public static final Block OXIDIZED_COPPER_BULB = register("oxidized_copper_bulb", new BulbBlock(AbstractBlock.Settings.create()
+                    .mapColor(MapColor.TEAL)
+                    .strength(3.0F, 6.0F)
+                    .sounds(MySoundEvent.COPPER_BULB)
+                    .requiresTool()
+                    .solidBlock(Blocks::never)
+                    .luminance(createLightLevelFromLitBlockState(4)
+                    )
+            )
     );
 
     private static <T extends Block> T register(String path, T block) {
@@ -110,7 +122,8 @@ public class RegistriesBlocks {
 
 
     public static void RegistriesBlocks() {
-
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content->content.addAfter(Blocks.DROPPER,RegistriesBlocks.COPPER_BULB));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(content->content.addAfter(Blocks.DROPPER,RegistriesBlocks.OXIDIZED_COPPER_BULB));
     }
 
 
