@@ -40,6 +40,5 @@
 	},
 	"suggests": {
 		"another-mod": "*"
-	},
-	"accessWidener": "bulb.accesswidener"
+	}
 }
